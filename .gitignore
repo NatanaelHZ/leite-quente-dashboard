@@ -1,0 +1,26 @@
+############### Web ###############
+# dependencies
+/web/node_modules
+/web/.pnp
+/web.pnp.js
+
+# testing
+/web/coverage
+
+# production
+/web/build
+
+# misc
+/web.DS_Store
+/web/.env
+/web/.env.local
+/web/.env.development.local
+/web/.env.test.local
+/web/.env.production.local
+/web.idea
+
+/webnpm-debug.log*
+/webyarn-debug.log*
+/webyarn-error.log*
+
+############### Server ###############
