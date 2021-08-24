@@ -8,6 +8,9 @@ import {
   SvgIcon
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
 
 const CustomerListToolbar = (props) => (
   <Box {...props}>
@@ -17,17 +20,27 @@ const CustomerListToolbar = (props) => (
         justifyContent: 'flex-end'
       }}
     >
-      <Button>
-        Import
+      <Button
+        variant="outlined"
+        startIcon={<DeleteIcon />}
+        color="danger"
+      >
+        Excluir
       </Button>
-      <Button sx={{ mx: 1 }}>
-        Export
+      <Button
+        sx={{ mx: 1 }}
+        variant="outlined"
+        startIcon={<EditIcon />}
+        color="edit"
+      >
+        Editar
       </Button>
       <Button
         color="primary"
         variant="contained"
+        startIcon={<AddIcon />}
       >
-        + Novo Animal
+        Novo Animal
       </Button>
     </Box>
     <Box sx={{ mt: 3 }}>
