@@ -24,3 +24,5 @@
 /webyarn-error.log*
 
 ############### Server ###############
+/server/node_modules
+/server/.env
