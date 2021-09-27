@@ -1,21 +1,76 @@
+import { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
   Box,
   Button,
   Container,
-  Grid,
   Link,
   TextField,
   Typography
 } from '@material-ui/core';
-import FacebookIcon from 'src/icons/Facebook';
-import GoogleIcon from 'src/icons/Google';
+import AuthService from '../services/AuthService';
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const initialValues = { email: '', password: '' };
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+    if (!values.email) {
+      errors.email = 'Preencha este campo';
+    } else if (!regex.test(values.email)) {
+      errors.email = 'Formato inválido';
+    }
+
+    if (!values.password) {
+      errors.password = 'Preencha este campo';
+    } else if (values.password.length < 4) {
+      errors.password = 'A senha deve ter mais de 4 caracteres';
+    }
+
+    return errors;
+  };
+
+  const submitForm = () => {
+    console.log(formValues);
+    AuthService.login(formValues.email, formValues.password).then(
+      () => {
+        navigate('/app/dashboard', { replace: true });
+      },
+      (error) => {
+        console.log(error);
+        setIsSubmitting(false);
+      }
+    );
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setFormErrors(validate(formValues));
+    setIsSubmitting(true);
+  };
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmitting) {
+      submitForm();
+    } else {
+      setIsSubmitting(false);
+    }
+  }, [formErrors]);
 
   return (
     <>
@@ -33,117 +88,49 @@ const Login = () => {
       >
         <Container maxWidth="sm">
           <Formik
-            initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
-            }}
-            validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
-            })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
-            }}
+            initialValues={initialValues}
+            validate={validate}
+            onSubmit={submitForm}
           >
-            {({
-              errors,
-              handleBlur,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-              touched,
-              values
-            }) => (
+            {() => (
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
                   <Typography
                     color="textPrimary"
                     variant="h2"
                   >
-                    Sign in
+                    Login
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
                     variant="body2"
                   >
-                    Sign in on the internal platform
-                  </Typography>
-                </Box>
-                <Grid
-                  container
-                  spacing={3}
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      color="primary"
-                      fullWidth
-                      startIcon={<FacebookIcon />}
-                      onClick={handleSubmit}
-                      size="large"
-                      variant="contained"
-                    >
-                      Login with Facebook
-                    </Button>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      fullWidth
-                      startIcon={<GoogleIcon />}
-                      onClick={handleSubmit}
-                      size="large"
-                      variant="contained"
-                    >
-                      Login with Google
-                    </Button>
-                  </Grid>
-                </Grid>
-                <Box
-                  sx={{
-                    pb: 1,
-                    pt: 3
-                  }}
-                >
-                  <Typography
-                    align="center"
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    or login with email address
+                    Faça login para entrar na plataforma Leite Quente
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
+                  error={Boolean(formErrors.email)}
                   fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
+                  helperText={formErrors.email}
+                  label="E-mail"
                   margin="normal"
                   name="email"
-                  onBlur={handleBlur}
                   onChange={handleChange}
                   type="email"
-                  value={values.email}
+                  value={formValues.email}
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.password && errors.password)}
+                  error={Boolean(formErrors.password)}
                   fullWidth
-                  helperText={touched.password && errors.password}
-                  label="Password"
+                  helperText={formErrors.password}
+                  label="Senha"
                   margin="normal"
                   name="password"
-                  onBlur={handleBlur}
                   onChange={handleChange}
                   type="password"
-                  value={values.password}
+                  value={formValues.password}
                   variant="outlined"
                 />
                 <Box sx={{ py: 2 }}>
@@ -155,21 +142,21 @@ const Login = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign in now
+                    Entrar
                   </Button>
                 </Box>
                 <Typography
                   color="textSecondary"
                   variant="body1"
                 >
-                  Don&apos;t have an account?
+                  Ainda não tem conta?
                   {' '}
                   <Link
                     component={RouterLink}
                     to="/register"
                     variant="h6"
                   >
-                    Sign up
+                    Criar conta
                   </Link>
                 </Typography>
               </form>
