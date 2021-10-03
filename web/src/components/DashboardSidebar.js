@@ -11,13 +11,10 @@ import {
   Typography
 } from '@material-ui/core';
 import {
-  AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
-  Lock as LockIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
-  UserPlus as UserPlusIcon,
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
@@ -25,7 +22,7 @@ import NavItem from './NavItem';
 const user = {
   avatar: '/static/images/avatars/farmer.png',
   jobTitle: 'Agricultor',
-  name: 'Natanael H. Zago'
+  name: 'Usuário'
 };
 
 const items = [
@@ -53,21 +50,6 @@ const items = [
     href: '/app/settings',
     icon: SettingsIcon,
     title: 'Configurações'
-  },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
   }
 ];
 

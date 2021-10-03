@@ -46,7 +46,7 @@ const Login = () => {
         navigate('/app/dashboard', { replace: true });
       },
       (error) => {
-        console.log(error);
+        setFormErrors(error);
         setIsSubmitting(false);
       }
     );
@@ -104,9 +104,10 @@ const Login = () => {
                   <Typography
                     color="textSecondary"
                     gutterBottom
-                    variant="body2"
+                    variant="body1"
+                    fontSize="1.1rem"
                   >
-                    Faça login para entrar na plataforma Leite Quente
+                    Faça login para entrar na plataforma Leite Quente 🐄🐮🌱👨‍🌾👩‍🌾💻
                   </Typography>
                 </Box>
                 <TextField

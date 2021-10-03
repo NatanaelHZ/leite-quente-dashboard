@@ -11,7 +11,7 @@ module.exports = class AuthService {
       const user = await User.findOne({ where: { email } });
 
       if (!user) {
-        return { error: true, message: 'user_not_found' };
+        return { success: false, message: 'user_not_found' };
       }
 
       if (await user.comparePassword(password)) {
@@ -19,16 +19,16 @@ module.exports = class AuthService {
           { user_id: user.id, email },
           process.env.TOKEN_KEY,
           {
-            expiresIn: '2h',
+            expiresIn: '2h'
           }
         );
 
-        return { token, email: user.email, id: user.id };
+        return { token, email: user.email, id: user.id, success: true };
       }
 
-      return { error: true, message: 'wrong_password' };
+      return { success: false, message: 'wrong_password' };
     } catch (error) {
-      return { error, message: 'error_password' };
+      return { error, success: false, message: 'error_password' };
     }
   }
 };

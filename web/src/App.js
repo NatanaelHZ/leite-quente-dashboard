@@ -5,9 +5,11 @@ import GlobalStyles from 'src/components/GlobalStyles';
 import 'src/mixins/chartjs';
 import theme from 'src/theme';
 import routes from 'src/routes';
+import AuthService from 'src/services/AuthService';
 
 const App = () => {
-  const routing = useRoutes(routes);
+  const isLogged = AuthService.isLoggedIn() || false;
+  const routing = useRoutes(routes(isLogged));
 
   return (
     <ThemeProvider theme={theme}>

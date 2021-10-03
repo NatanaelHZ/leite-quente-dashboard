@@ -8,12 +8,11 @@ class AuthService {
       email,
       password
     }).then((res) => {
-      if (res.data.accessToken) {
-        console.log(JSON.stringify(res.data));
-        localStorage.setItem('user', JSON.stringify(res.data));
+      if (res.data.user) {
+        localStorage.setItem('user', JSON.stringify(res.data.user));
       }
 
-      return res.data;
+      return res.data.user;
     });
   }
 
@@ -21,15 +20,31 @@ class AuthService {
     localStorage.removeItem('user');
   }
 
-  static async register(email, password) {
+  /*  static async register(email, password) {
     return axios.post(`${API_URL}signup`, {
       email,
       password
     });
-  }
+  } */
 
   static async getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));
+    try {
+      return JSON.parse(localStorage.getItem('user'));
+    } catch (error) {
+      return { };
+    }
+  }
+
+  static async getCurrentUserEmail() {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    return user.email;
+  }
+
+  static async isLoggedIn() {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    return user.success;
   }
 }
 

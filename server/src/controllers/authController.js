@@ -5,13 +5,17 @@ module.exports = class authController {
     try {
       const user = await AuthService.loginUser(req.body);
 
-      if (user.error) {
-        res.status(400).json({ error: user.error, message: 'login_error' });
+      if (user.success) {
+        res.status(200).json({ user, success: true, message: 'login_success' });
+      } else {
+        res
+          .status(400)
+          .json({ error: user.error, success: false, message: 'login_error' });
       }
-
-      res.status(201).json({ user, message: 'login_success' });
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      res
+        .status(400)
+        .json({ error: error.message, success: false, message: 'login_error' });
     }
   }
 };
