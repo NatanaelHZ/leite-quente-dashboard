@@ -13,14 +13,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from './Logo';
-import AuthService from '../services/AuthService';
+import * as authService from '../services/AuthService';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
   const navigate = useNavigate();
 
   const onClickLogout = () => {
-    AuthService.logout();
+    authService.logout();
 
     navigate('/app/dashboard', { replace: true });
   };

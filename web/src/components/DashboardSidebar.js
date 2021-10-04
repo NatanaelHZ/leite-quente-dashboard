@@ -18,11 +18,12 @@ import {
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
+import * as authService from '../services/AuthService';
 
 const user = {
   avatar: '/static/images/avatars/farmer.png',
   jobTitle: 'Agricultor',
-  name: 'Usuário'
+  name: String(authService.getCurrentUserEmail())
 };
 
 const items = [

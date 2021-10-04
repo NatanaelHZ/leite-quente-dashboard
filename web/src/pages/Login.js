@@ -10,7 +10,7 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import AuthService from '../services/AuthService';
+import * as authService from '../services/AuthService';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const Login = () => {
 
   const submitForm = () => {
     console.log(formValues);
-    AuthService.login(formValues.email, formValues.password).then(
+    authService.login(formValues.email, formValues.password).then(
       () => {
         navigate('/app/dashboard', { replace: true });
       },
