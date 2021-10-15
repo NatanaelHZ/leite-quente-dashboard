@@ -17,5 +17,5 @@ app.use(router);
 db.sequelize.sync();
 
 app.listen(process.env.API_PORT, () => {
-  console.log(`Server 🚀 Listening on port: ${process.env.API_PORT}`);
+  console.log(`Server 🚀 Listening on port: ${process.env.API_PORT} \n\n`);
 });
