@@ -6,7 +6,9 @@ import MainLayout from 'src/components/MainLayout';
 // eslint-disable-next-line import/no-unresolved
 import Account from 'src/pages/Account';
 // eslint-disable-next-line import/no-unresolved
-import CustomerList from 'src/pages/CustomerList';
+import AnimalList from 'src/pages/AnimalList';
+// eslint-disable-next-line import/no-unresolved
+import Animal from 'src/pages/Animal';
 // eslint-disable-next-line import/no-unresolved
 import Dashboard from 'src/pages/Dashboard';
 // eslint-disable-next-line import/no-unresolved
@@ -23,10 +25,11 @@ import Settings from 'src/pages/Settings';
 const routes = (isLoggedIn) => [
   {
     path: '/app',
-    element: isLoggedIn && true ? <DashboardLayout /> : <Navigate to="/login" />,
+    element: isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />,
     children: [
       { path: 'account', element: <Account /> },
-      { path: 'customers', element: <CustomerList /> },
+      { path: 'animals', element: <AnimalList /> },
+      { path: 'animal', element: <Animal /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },

@@ -15,43 +15,44 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core';
+// eslint-disable-next-line import/no-unresolved
 import getInitials from 'src/utils/getInitials';
 
-const CustomerListResults = ({ customers, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+const AnimalListResults = ({ animals, ...rest }) => {
+  const [selectedAnimalIds, setSelectedAnimalIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
   const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
+    let newSelectedAnimalIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedAnimalIds = animals.map((animal) => animal.id);
     } else {
-      newSelectedCustomerIds = [];
+      newSelectedAnimalIds = [];
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    setSelectedAnimalIds(newSelectedAnimalIds);
   };
 
   const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
+    const selectedIndex = selectedAnimalIds.indexOf(id);
+    let newSelectedAnimalIds = [];
 
     if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
+      newSelectedAnimalIds = newSelectedAnimalIds.concat(selectedAnimalIds, id);
     } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
+      newSelectedAnimalIds = newSelectedAnimalIds.concat(selectedAnimalIds.slice(1));
+    } else if (selectedIndex === selectedAnimalIds.length - 1) {
+      newSelectedAnimalIds = newSelectedAnimalIds.concat(selectedAnimalIds.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
+      newSelectedAnimalIds = newSelectedAnimalIds.concat(
+        selectedAnimalIds.slice(0, selectedIndex),
+        selectedAnimalIds.slice(selectedIndex + 1)
       );
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    setSelectedAnimalIds(newSelectedAnimalIds);
   };
 
   const handleLimitChange = (event) => {
@@ -71,11 +72,11 @@ const CustomerListResults = ({ customers, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
+                    checked={selectedAnimalIds.length === animals.length}
                     color="primary"
                     indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
+                      selectedAnimalIds.length > 0
+                      && selectedAnimalIds.length < animals.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -98,16 +99,16 @@ const CustomerListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {animals.slice(0, limit).map((animal) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={animal.id}
+                  selected={selectedAnimalIds.indexOf(animal.id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      checked={selectedAnimalIds.indexOf(animal.id) !== -1}
+                      onChange={(event) => handleSelectOne(event, animal.id)}
                       value="true"
                     />
                   </TableCell>
@@ -119,30 +120,30 @@ const CustomerListResults = ({ customers, ...rest }) => {
                       }}
                     >
                       <Avatar
-                        src={customer.avatarUrl}
+                        src={animal.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(customer.name)}
+                        {getInitials(animal.name)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {animal.name}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {animal.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {`${animal.address.city}, ${animal.address.state}, ${animal.address.country}`}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {animal.phone}
                   </TableCell>
                   <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                    {moment(animal.createdAt).format('DD/MM/YYYY')}
                   </TableCell>
                 </TableRow>
               ))}
@@ -152,7 +153,7 @@ const CustomerListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={animals.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -163,8 +164,8 @@ const CustomerListResults = ({ customers, ...rest }) => {
   );
 };
 
-CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired
+AnimalListResults.propTypes = {
+  animals: PropTypes.array.isRequired
 };
 
-export default CustomerListResults;
+export default AnimalListResults;

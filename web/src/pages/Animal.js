@@ -5,14 +5,14 @@ import {
   Grid
 } from '@material-ui/core';
 // eslint-disable-next-line import/no-unresolved
-import AccountProfile from 'src/components/account/AccountProfile';
+import AnimalAdd from 'src/components/animal/AnimalAdd';
 // eslint-disable-next-line import/no-unresolved
-import AccountProfileDetails from 'src/components/account/AccountProfileDetails';
+import AnimalAddDetail from 'src/components/animal/AnimalAddDetail';
 
-const Account = () => (
+const Animal = () => (
   <>
     <Helmet>
-      <title>Account | Leite Quente</title>
+      <title>Animal | Leite Quente</title>
     </Helmet>
     <Box
       sx={{
@@ -32,7 +32,7 @@ const Account = () => (
             md={6}
             xs={12}
           >
-            <AccountProfile />
+            <AnimalAddDetail />
           </Grid>
           <Grid
             item
@@ -40,7 +40,7 @@ const Account = () => (
             md={6}
             xs={12}
           >
-            <AccountProfileDetails />
+            <AnimalAdd />
           </Grid>
         </Grid>
       </Container>
@@ -48,4 +48,4 @@ const Account = () => (
   </>
 );
 
-export default Account;
+export default Animal;

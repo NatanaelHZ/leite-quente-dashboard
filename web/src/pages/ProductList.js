@@ -1,9 +1,9 @@
+/* eslint-disable import/no-unresolved */
 import { Helmet } from 'react-helmet';
 import {
   Box,
   Container,
-  Grid,
-  Pagination
+  Grid
 } from '@material-ui/core';
 import ProductListToolbar from 'src/components/product/ProductListToolbar';
 import ProductCard from 'src/components/product//ProductCard';
@@ -40,19 +40,6 @@ const ProductList = () => (
               </Grid>
             ))}
           </Grid>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            pt: 3
-          }}
-        >
-          <Pagination
-            color="primary"
-            count={3}
-            size="small"
-          />
         </Box>
       </Container>
     </Box>

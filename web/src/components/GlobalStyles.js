@@ -24,6 +24,10 @@ const useStyles = makeStyles(() => createStyles({
     '#root': {
       height: '100%',
       width: '100%'
+    },
+    '.cowIcon': {
+      height: '10em',
+      margin: '-10px'
     }
   }
 }));

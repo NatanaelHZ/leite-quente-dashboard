@@ -14,9 +14,9 @@ import {
   BarChart as BarChartIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
-  User as UserIcon,
-  Users as UsersIcon
+  User as UserIcon
 } from 'react-feather';
+import { GiCow as AnimalIcon } from 'react-icons/gi';
 import NavItem from './NavItem';
 import * as authService from '../services/AuthService';
 
@@ -33,8 +33,8 @@ const items = [
     title: 'Gráficos'
   },
   {
-    href: '/app/customers',
-    icon: UsersIcon,
+    href: '/app/animals',
+    icon: AnimalIcon,
     title: 'Animais'
   },
   {
