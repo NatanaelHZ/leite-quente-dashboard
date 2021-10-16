@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -17,23 +17,14 @@ import {
 } from '@material-ui/core';
 // eslint-disable-next-line import/no-unresolved
 import getInitials from 'src/utils/getInitials';
+// eslint-disable-next-line import/no-unresolved
+import getBreeds from 'src/utils/getBreeds';
 
 const AnimalListResults = ({ animals, ...rest }) => {
   const [selectedAnimalIds, setSelectedAnimalIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-
-  const handleSelectAll = (event) => {
-    let newSelectedAnimalIds;
-
-    if (event.target.checked) {
-      newSelectedAnimalIds = animals.map((animal) => animal.id);
-    } else {
-      newSelectedAnimalIds = [];
-    }
-
-    setSelectedAnimalIds(newSelectedAnimalIds);
-  };
+  const [avatar, setAvatar] = useState('');
 
   const handleSelectOne = (event, id) => {
     const selectedIndex = selectedAnimalIds.indexOf(id);
@@ -63,6 +54,10 @@ const AnimalListResults = ({ animals, ...rest }) => {
     setPage(newPage);
   };
 
+  useEffect(() => {
+    setAvatar('/static/images/avatars/avatar.png');
+  }, []);
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -70,31 +65,23 @@ const AnimalListResults = ({ animals, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedAnimalIds.length === animals.length}
-                    color="primary"
-                    indeterminate={
-                      selectedAnimalIds.length > 0
-                      && selectedAnimalIds.length < animals.length
-                    }
-                    onChange={handleSelectAll}
-                  />
+                <TableCell style={{ color: 'transparent' }}>
+                  +
                 </TableCell>
                 <TableCell>
-                  Name
+                  Nome
                 </TableCell>
                 <TableCell>
-                  Email
+                  N° Registro
                 </TableCell>
                 <TableCell>
-                  Location
+                  Raça
                 </TableCell>
                 <TableCell>
-                  Phone
+                  Sexo
                 </TableCell>
                 <TableCell>
-                  Registration date
+                  Data Nasc.
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -120,7 +107,7 @@ const AnimalListResults = ({ animals, ...rest }) => {
                       }}
                     >
                       <Avatar
-                        src={animal.avatarUrl}
+                        src={avatar}
                         sx={{ mr: 2 }}
                       >
                         {getInitials(animal.name)}
@@ -134,16 +121,16 @@ const AnimalListResults = ({ animals, ...rest }) => {
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {animal.email}
+                    {animal.registerNumber}
                   </TableCell>
                   <TableCell>
-                    {`${animal.address.city}, ${animal.address.state}, ${animal.address.country}`}
+                    {`${getBreeds(animal.breed_id)}`}
                   </TableCell>
                   <TableCell>
-                    {animal.phone}
+                    {animal.genre === 'M' ? 'Macho' : 'Fêmea'}
                   </TableCell>
                   <TableCell>
-                    {moment(animal.createdAt).format('DD/MM/YYYY')}
+                    {moment('1995-04-28').format('DD/MM/YYYY')}
                   </TableCell>
                 </TableRow>
               ))}

@@ -1,4 +1,3 @@
-import moment from 'moment';
 import {
   Avatar,
   Box,
@@ -11,12 +10,12 @@ import {
 } from '@material-ui/core';
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
+  avatar: '/static/images/avatars/avatar.png',
+  city: '',
+  country: '',
+  jobTitle: '',
+  name: '',
+  timezone: ''
 };
 
 const AnimalAddDetail = (props) => (
@@ -48,12 +47,6 @@ const AnimalAddDetail = (props) => (
           variant="body1"
         >
           {`${user.city} ${user.country}`}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body1"
-        >
-          {`${moment().format('hh:mm A')} ${user.timezone}`}
         </Typography>
       </Box>
     </CardContent>

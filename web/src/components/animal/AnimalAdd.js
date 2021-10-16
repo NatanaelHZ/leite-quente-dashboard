@@ -12,45 +12,20 @@ import {
   Grid,
   TextField
 } from '@material-ui/core';
-// eslint-disable-next-line import/extensions
-import * as animalService from '../services/AnimalService';
+import * as animalService from '../../services/AnimalService';
+import breeds from '../../__mocks__/breeds';
+import genres from '../../__mocks__/genres';
 
-const breeds = [
-  {
-    value: '1',
-    label: 'Holandesa'
-  },
-  {
-    value: '2',
-    label: 'Jersey'
-  },
-  {
-    value: '3',
-    label: 'Girolando'
-  }
-];
-
-const genres = [
-  {
-    value: 'F',
-    label: 'Feminino'
-  },
-  {
-    value: 'M',
-    label: 'Masculino'
-  },
-];
-
-const AnimalAdd = (props) => {
+const AnimalAdd = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    registerNumber: null,
+    registerNumber: '',
     name: '',
-    registerMotherNumber: null,
-    registerFatherNumber: null,
-    genre: null,
-    breed_id: null
+    registerMotherNumber: '',
+    registerFatherNumber: '',
+    genre: '',
+    breed_id: ''
   };
 
   const [formValues, setFormValues] = useState(initialValues);
@@ -71,23 +46,11 @@ const AnimalAdd = (props) => {
     return errors;
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormValues({ ...formValues, [name]: value });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setFormErrors(validate(formValues));
-    setIsSubmitting(true);
-  };
-
   const submitForm = () => {
     console.log(formValues);
     animalService.create(formValues).then(
       () => {
-        navigate('/app/animal', { replace: true });
+        navigate('/app/animals', { replace: true });
       },
       (error) => {
         setFormErrors(error);
@@ -96,17 +59,32 @@ const AnimalAdd = (props) => {
     );
   };
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    console.log('teste');
+    event.preventDefault();
+    setFormErrors(validate(formValues));
+    setIsSubmitting(true);
+
+    submitForm();
+  };
+
   return (
     <Formik
       initialValues={initialValues}
-      validate={validate}
+      validate={() => { console.log('Hey hou'); }}
       onSubmit={submitForm}
     >
       {() => (
-        <form {...props} onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <Card>
             <CardHeader
-              subheader="Cadastro novo animal"
+              subheader="Cadastrar novo animal"
               title="Animal"
             />
             <Divider />
@@ -128,6 +106,7 @@ const AnimalAdd = (props) => {
                     required
                     value={formValues.registerNumber}
                     variant="outlined"
+                    error={Boolean(formErrors.registerNumber)}
                     helperText={formErrors.registerNumber}
                   />
                 </Grid>
@@ -144,6 +123,8 @@ const AnimalAdd = (props) => {
                     required
                     value={formValues.name}
                     variant="outlined"
+                    error={Boolean(formErrors.name)}
+                    helperText={formErrors.name}
                   />
                 </Grid>
                 <Grid
@@ -239,8 +220,9 @@ const AnimalAdd = (props) => {
             >
               <Button
                 color="primary"
-                variant="contained"
                 disabled={isSubmitting}
+                type="submit"
+                variant="contained"
               >
                 Salvar
               </Button>

@@ -1,1 +1,6 @@
-registerNumber
+registerNumber - numero
+name - nome 
+registerMotherNumber - numero mão
+registerFatherNumber - numero pai
+genre_id - sexo
+breed_id - raça
