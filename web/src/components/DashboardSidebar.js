@@ -38,7 +38,7 @@ const items = [
     title: 'Animais'
   },
   {
-    href: '/app/products',
+    href: '/app/productions',
     icon: ShoppingBagIcon,
     title: 'Produção'
   },

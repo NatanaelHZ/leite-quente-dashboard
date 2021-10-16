@@ -10,6 +10,10 @@ import AnimalList from 'src/pages/AnimalList';
 // eslint-disable-next-line import/no-unresolved
 import Animal from 'src/pages/Animal';
 // eslint-disable-next-line import/no-unresolved
+import ProductionList from 'src/pages/ProductionList';
+// eslint-disable-next-line import/no-unresolved
+import Production from 'src/pages/Production';
+// eslint-disable-next-line import/no-unresolved
 import Dashboard from 'src/pages/Dashboard';
 // eslint-disable-next-line import/no-unresolved
 import Login from 'src/pages/Login';
@@ -30,6 +34,8 @@ const routes = (isLoggedIn) => [
       { path: 'account', element: <Account /> },
       { path: 'animals', element: <AnimalList /> },
       { path: 'animal', element: <Animal /> },
+      { path: 'productions', element: <ProductionList /> },
+      { path: 'production', element: <Production /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
