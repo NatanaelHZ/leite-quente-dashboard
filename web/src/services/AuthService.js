@@ -7,11 +7,11 @@ export async function login(email, password) {
     email,
     password
   }).then((res) => {
-    if (res.data.user) {
-      localStorage.setItem('user', JSON.stringify(res.data.user));
+    if (res.data.data) {
+      localStorage.setItem('user', JSON.stringify(res.data.data));
     }
 
-    return res.data.user;
+    return res.data.data;
   });
 }
 
@@ -20,7 +20,7 @@ export function logout() {
 }
 
 export async function register(email, password) {
-  return axios.post(`${API_URL}signup`, {
+  return axios.post(`${API_URL}auth/register`, {
     email,
     password
   });
@@ -31,13 +31,25 @@ export function getCurrentUser() {
 }
 
 export function getCurrentUserEmail() {
+  const has = Object.prototype.hasOwnProperty;
+
   const user = JSON.parse(localStorage.getItem('user'));
 
-  return user?.email || 'Usuário';
+  if (has.call(user, 'email')) {
+    return user.email;
+  }
+
+  return 'faça login';
 }
 
 export function isLoggedIn() {
+  const has = Object.prototype.hasOwnProperty;
+
   const user = JSON.parse(localStorage.getItem('user'));
 
-  return user?.success || false;
+  if (has.call(user, 'token')) {
+    return user.token;
+  }
+
+  return false;
 }

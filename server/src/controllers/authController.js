@@ -18,13 +18,18 @@ exports.login = async (req, res) => {
         { user_id: user.id, email },
         process.env.TOKEN_KEY,
         {
-          expiresIn: '9h'
+          expiresIn: '2h'
         }
       );
 
-      user.token = token;
+      const logged = {
+        email: user.email,
+        name: user.name,
+        id: user.id,
+        token
+      };
 
-      return res.status(200).json({ data: user, message: 'login_success' });
+      return res.status(200).json({ data: logged, message: 'login_success' });
     }
 
     return res
@@ -34,5 +39,35 @@ exports.login = async (req, res) => {
     return res
       .status(401)
       .json({ error: error.message, message: 'login_error' });
+  }
+};
+
+exports.register = async (req, res) => {
+  try {
+    const has = Object.prototype.hasOwnProperty;
+    const user = { ...req.body };
+    const { email } = user;
+
+    const userCreated = await User.create(user);
+
+    if (userCreated.id) {
+      const token = jwt.sign(
+        { user_id: userCreated.id, email },
+        process.env.TOKEN_KEY,
+        {
+          expiresIn: '9h'
+        }
+      );
+
+      userCreated.token = token;
+
+      if (has.call(user, 'password')) {
+        delete user.password;
+      }
+    }
+
+    res.status(201).json({ data: userCreated, message: 'register_success' });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };

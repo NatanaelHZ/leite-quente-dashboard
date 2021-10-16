@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-const user = JSON.parse(localStorage.getItem('user'));
-const accesstoken = user && user.token;
+const { token } = JSON.parse(localStorage.getItem('user'));
 
 export default axios.create({
   baseURL: 'http://localhost:8080/',
   headers: {
     'Content-type': 'application/json',
-    'x-access-token': accesstoken
+    'x-access-token': token
   }
 });
