@@ -1,24 +1,28 @@
-const UserService = require('../services/UserService');
 const { Animal } = require('../models');
 
 module.exports = class AnimalController {
   static async get(req, res) {
     try {
-      const allUsers = await UserService.getAllUsers();
+      const animals = await Animal.findAll();
 
-      res.json({ users: allUsers });
+      return res.status(200).json({
+        animals,
+        message: 'get_success'
+      });
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      return res.status(400).json({
+        error: error.message
+      });
     }
   }
 
-  static async getUserbyId(req, res) {
+  static async getById(req, res) {
     try {
-      const idUser = req.params.id;
+      const { id } = req.params;
 
-      const getUserbyId = await UserService.getUserbyId(idUser);
+      const animal = await Animal.findByPk(id);
 
-      res.json({ user: getUserbyId });
+      res.json({ data: animal });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
@@ -26,27 +30,25 @@ module.exports = class AnimalController {
 
   static async create(req, res) {
     try {
-      console.log(`UHUUUUUL ${req.body}`);
       const AnimalCreated = await Animal.create(req.body);
 
-      return res.status(201).json({
-        Animal: AnimalCreated,
-        message: 'success_create_Animal'
+      res.status(201).json({
+        data: AnimalCreated,
+        message: 'create_success'
       });
-    } catch (e) {
-      return res.status(400).json({
-        message: e.message
-      });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
   }
 
   static async update(req, res) {
     try {
-      const user = { ...req.body, id: req.params.id };
+      const { id } = req.params.id;
+      const animal = { ...req.body };
 
-      const updateUser = await UserService.updateUser(user);
+      const updateAnimal = await Animal.update(animal, { where: { id } });
 
-      res.status(201).json({ user: updateUser, message: 'update_success' });
+      res.status(201).json({ data: updateAnimal, message: 'update_success' });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
@@ -54,11 +56,11 @@ module.exports = class AnimalController {
 
   static async delete(req, res) {
     try {
-      const userId = req.params.id;
+      const { id } = req.params.id;
 
-      const deleteUser = await UserService.deleteUser(userId);
+      const deletedAnimal = await Animal.destroy({ where: { id } });
 
-      res.json({ user: deleteUser });
+      res.json({ data: deletedAnimal, message: 'delete_success' });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
