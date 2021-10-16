@@ -167,7 +167,7 @@ const ProductionList = () => {
                 startIcon={<AddIcon />}
                 onClick={handleAdd}
               >
-                Novo Production
+                Lançar Produção
               </Button>
             </Box>
             <Box sx={{ mt: 3 }}>
