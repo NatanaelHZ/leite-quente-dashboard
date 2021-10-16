@@ -57,7 +57,7 @@ module.exports = class UserService {
     }
   }
 
-  static async getUserbyId(UserId) {
+  static async getById(UserId) {
     try {
       const singleUser = await User.findByPk(UserId);
 

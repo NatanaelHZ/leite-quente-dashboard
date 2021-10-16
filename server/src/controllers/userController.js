@@ -1,67 +1,79 @@
-const UserService = require('../services/UserService');
+const jwt = require('jsonwebtoken');
+const { User } = require('../models');
 
 module.exports = class UserController {
-  static async getAllUsers(req, res) {
+  static async get(req, res) {
     try {
-      const allUsers = await UserService.getAllUsers();
+      const users = await User.findAll();
 
-      res.json({ users: allUsers });
+      res.json({ data: users, message: 'get_success' });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   }
 
-  static async getUserbyId(req, res) {
+  static async getbyId(req, res) {
     try {
-      const idUser = req.params.id;
+      const { id } = req.params.id;
 
-      const getUserbyId = await UserService.getUserbyId(idUser);
+      const user = await User.findByPk(id);
 
-      res.json({ user: getUserbyId });
+      res.json({ data: user, message: 'get_success' });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   }
 
-  static async registerUser(req, res) {
+  static async register(req, res) {
     try {
       const has = Object.prototype.hasOwnProperty;
+      const user = { ...req.body };
+      const { email } = user;
 
-      const user = await UserService.registerUser(req.body);
+      const userCreated = await User.create(user);
 
-      if (has.call(user, 'password')) {
-        delete user.password;
+      if (userCreated.id) {
+        const token = jwt.sign(
+          { user_id: userCreated.id, email },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: '9h'
+          }
+        );
+
+        userCreated.token = token;
+
+        if (has.call(user, 'password')) {
+          delete user.password;
+        }
       }
 
-      if (user.error) {
-        res.status(400).json({ error: user.error, message: 'create_error' });
-      } else {
-        res.status(201).json({ user, message: 'create_success' });
-      }
+      res.status(201).json({ data: userCreated, message: 'register_success' });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   }
 
-  static async updateUser(req, res) {
+  static async update(req, res) {
     try {
-      const user = { ...req.body, id: req.params.id };
+      const user = { ...req.body };
+      const { id } = req.params;
 
-      const updateUser = await UserService.updateUser(user);
+      const updatedUser = await User.update(user, { where: { id } });
 
-      res.status(201).json({ user: updateUser, message: 'update_success' });
+      res.status(201).json({ data: updatedUser, message: 'update_success' });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   }
 
-  static async deleteUser(req, res) {
+  static async delete(req, res) {
     try {
-      const userId = req.params.id;
+      const { id } = req.params;
 
-      const deleteUser = await UserService.deleteUser(userId);
+      const deletedUser = await User.destroy({ where: { id } });
 
-      res.json({ user: deleteUser });
+      res.json({ data: deletedUser, message: 'delete_success' });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
