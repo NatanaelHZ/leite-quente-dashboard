@@ -21,6 +21,10 @@ module.exports = (sequelize, Sequelize) => {
       description: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      liters: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       }
     },
     {

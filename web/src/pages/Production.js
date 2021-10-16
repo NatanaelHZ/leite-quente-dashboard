@@ -10,8 +10,6 @@ import {
 import ProductionAdd from 'src/components/production/ProductionAdd';
 // eslint-disable-next-line import/no-unresolved
 import ProductionEdit from 'src/components/production/ProductionEdit';
-// eslint-disable-next-line import/no-unresolved
-import ProductionAddDetail from 'src/components/production/ProductionAddDetail';
 
 const Production = () => {
   const { state } = useLocation();
@@ -47,16 +45,8 @@ const Production = () => {
           >
             <Grid
               item
-              lg={4}
-              md={6}
-              xs={12}
-            >
-              <ProductionAddDetail />
-            </Grid>
-            <Grid
-              item
-              lg={8}
-              md={6}
+              lg={12}
+              md={12}
               xs={12}
             >
               { idProduction ? <ProductionEdit id={idProduction} /> : <ProductionAdd /> }

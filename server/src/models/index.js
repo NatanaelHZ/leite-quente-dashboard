@@ -19,5 +19,6 @@ db.Sequelize = Sequelize;
 
 db.User = require('./User')(sequelize, Sequelize);
 db.Animal = require('./Animal')(sequelize, Sequelize);
+db.Production = require('./Production')(sequelize, Sequelize);
 
 module.exports = db;

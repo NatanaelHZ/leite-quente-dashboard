@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import {
-  Avatar,
   Box,
   Button,
   Card,
@@ -27,11 +26,6 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-// eslint-disable-next-line import/no-unresolved
-import getInitials from 'src/utils/getInitials';
-// eslint-disable-next-line import/no-unresolved
-import getBreeds from 'src/utils/getBreeds';
-
 import * as productionService from 'src/services/ProductionService';
 
 const ProductionList = () => {
@@ -41,7 +35,6 @@ const ProductionList = () => {
   const [selectedProductionIds, setSelectedProductionIds] = useState([]);
   const [limit, setLimit] = useState(100);
   const [page, setPage] = useState(0);
-  const [avatar, setAvatar] = useState('');
 
   const listProductions = () => {
     productionService.list().then(
@@ -118,10 +111,6 @@ const ProductionList = () => {
 
   useEffect(() => {
     listProductions();
-  }, []);
-
-  useEffect(() => {
-    setAvatar('/static/images/avatars/avatar.png');
   }, []);
 
   return (
@@ -207,19 +196,16 @@ const ProductionList = () => {
                           +
                         </TableCell>
                         <TableCell>
-                          Nome
+                          Data
                         </TableCell>
                         <TableCell>
-                          N° Registro
+                          Litros
                         </TableCell>
                         <TableCell>
-                          Raça
+                          Valor
                         </TableCell>
                         <TableCell>
-                          Sexo
-                        </TableCell>
-                        <TableCell>
-                          Data Nasc.
+                          Descrição
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -244,31 +230,22 @@ const ProductionList = () => {
                                 display: 'flex'
                               }}
                             >
-                              <Avatar
-                                src={avatar}
-                                sx={{ mr: 2 }}
-                              >
-                                {getInitials(production.name)}
-                              </Avatar>
                               <Typography
                                 color="textPrimary"
                                 variant="body1"
                               >
-                                {production.name}
+                                {`${moment(production.date).format('DD/MM/YYYY')}`}
                               </Typography>
                             </Box>
                           </TableCell>
                           <TableCell>
-                            {production.registerNumber}
+                            {production.liters}
                           </TableCell>
                           <TableCell>
-                            {`${getBreeds(production.breed_id)}`}
+                            {production.price}
                           </TableCell>
                           <TableCell>
-                            {production.genre === 'M' ? 'Macho' : 'Fêmea'}
-                          </TableCell>
-                          <TableCell>
-                            {moment('1995-04-28').format('DD/MM/YYYY')}
+                            {production.description}
                           </TableCell>
                         </TableRow>
                       ))}

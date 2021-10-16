@@ -12,19 +12,15 @@ import {
   TextField
 } from '@material-ui/core';
 import * as productionService from '../../services/ProductionService';
-import breeds from '../../__mocks__/breeds';
-import genres from '../../__mocks__/genres';
 
 const ProductionAdd = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    registerNumber: '',
-    name: '',
-    registerMotherNumber: '',
-    registerFatherNumber: '',
-    genre: '',
-    breed_id: ''
+    date: '',
+    description: '',
+    price: '',
+    liters: ''
   };
 
   const [formValues, setFormValues] = useState(initialValues);
@@ -34,12 +30,12 @@ const ProductionAdd = () => {
   const validate = (values) => {
     const errors = {};
 
-    if (!values.registerNumber) {
-      errors.registerNumber = 'Preencha este campo';
+    if (!values.date) {
+      errors.date = 'Preencha este campo';
     }
 
-    if (!values.name) {
-      errors.name = 'Preencha este campo';
+    if (!values.liters) {
+      errors.liters = 'Preencha este campo';
     }
 
     return errors;
@@ -94,118 +90,66 @@ const ProductionAdd = () => {
               >
                 <Grid
                   item
-                  md={3}
+                  md={4}
                   xs={12}
                 >
                   <TextField
                     fullWidth
-                    label="N° Registro"
-                    name="registerNumber"
+                    label="Data"
+                    name="date"
                     onChange={handleChange}
                     required
-                    value={formValues.registerNumber}
+                    value={formValues.date}
                     variant="outlined"
-                    error={Boolean(formErrors.registerNumber)}
-                    helperText={formErrors.registerNumber}
+                    error={Boolean(formErrors.date)}
+                    helperText={formErrors.date}
                   />
                 </Grid>
                 <Grid
                   item
-                  md={9}
+                  md={4}
                   xs={12}
                 >
                   <TextField
                     fullWidth
-                    label="Nome"
-                    name="name"
+                    label="Litros"
+                    name="liters"
                     onChange={handleChange}
                     required
-                    value={formValues.name}
+                    value={formValues.liters}
                     variant="outlined"
-                    error={Boolean(formErrors.name)}
-                    helperText={formErrors.name}
+                    error={Boolean(formErrors.liters)}
+                    helperText={formErrors.liters}
                   />
                 </Grid>
                 <Grid
                   item
-                  md={6}
+                  md={4}
                   xs={12}
                 >
                   <TextField
                     fullWidth
-                    label="Número Mãe"
-                    name="registerMotherNumber"
+                    label="R$ Valor"
+                    name="price"
                     onChange={handleChange}
                     required
-                    value={formValues.registerMotherNumber}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid
-                  item
-                  md={6}
-                  xs={12}
-                >
-                  <TextField
-                    fullWidth
-                    label="Número Pai"
-                    name="registerFatherNumber"
-                    onChange={handleChange}
-                    value={formValues.registerFatherNumber}
+                    value={formValues.price}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid
                   item
-                  md={6}
+                  md={12}
                   xs={12}
                 >
                   <TextField
                     fullWidth
-                    label="Sexo"
-                    name="genre"
+                    label="Descrição"
+                    name="description"
                     onChange={handleChange}
-                    required
-                    select
-                    SelectProps={{ native: true }}
-                    value={formValues.genre}
+                    value={formValues.description}
                     variant="outlined"
-                  >
-                    {genres.map((option) => (
-                      <option
-                        key={option.value}
-                        value={option.value}
-                      >
-                        {option.label}
-                      </option>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid
-                  item
-                  md={6}
-                  xs={12}
-                >
-                  <TextField
-                    fullWidth
-                    label="Raça"
-                    name="breed_id"
-                    onChange={handleChange}
-                    required
-                    select
-                    SelectProps={{ native: true }}
-                    value={formValues.breed_id}
-                    variant="outlined"
-                  >
-                    {breeds.map((option) => (
-                      <option
-                        key={option.value}
-                        value={option.value}
-                      >
-                        {option.label}
-                      </option>
-                    ))}
-                  </TextField>
+                  />
                 </Grid>
               </Grid>
             </CardContent>
