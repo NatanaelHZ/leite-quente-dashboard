@@ -1,12 +1,12 @@
 const { Animal } = require('../models');
 
-exports.get = async (req, res) => {
+exports.list = async (req, res) => {
   try {
     const animals = await Animal.findAll();
 
     return res.status(200).json({
-      animals,
-      message: 'get_success'
+      data: animals,
+      message: 'list_success'
     });
   } catch (error) {
     return res.status(400).json({
@@ -15,13 +15,13 @@ exports.get = async (req, res) => {
   }
 };
 
-exports.getById = async (req, res) => {
+exports.get = async (req, res) => {
   try {
     const { id } = req.params;
 
     const animal = await Animal.findByPk(id);
 
-    res.json({ data: animal });
+    res.json({ data: animal, message: 'get_success' });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

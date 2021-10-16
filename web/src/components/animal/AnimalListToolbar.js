@@ -16,6 +16,14 @@ import EditIcon from '@material-ui/icons/Edit';
 const AnimalListToolbar = (props) => {
   const navigate = useNavigate();
 
+  const handleAdd = () => {
+    navigate('/app/animal', { replace: true });
+  };
+
+  const handleEdit = () => {
+    navigate('/app/animal', { replace: true });
+  };
+
   return (
     <>
       <Box {...props}>
@@ -37,6 +45,7 @@ const AnimalListToolbar = (props) => {
             variant="outlined"
             startIcon={<EditIcon />}
             color="edit"
+            onClick={handleEdit}
           >
             Editar
           </Button>
@@ -44,9 +53,7 @@ const AnimalListToolbar = (props) => {
             color="primary"
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={() => {
-              navigate('/app/animal', { replace: true });
-            }}
+            onClick={handleAdd}
           >
             Novo Animal
           </Button>

@@ -22,7 +22,7 @@ import getBreeds from 'src/utils/getBreeds';
 
 const AnimalListResults = ({ animals, ...rest }) => {
   const [selectedAnimalIds, setSelectedAnimalIds] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(100);
   const [page, setPage] = useState(0);
   const [avatar, setAvatar] = useState('');
 
