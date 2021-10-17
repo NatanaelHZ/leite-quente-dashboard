@@ -103,6 +103,10 @@ const ProductionAdd = () => {
                     variant="outlined"
                     error={Boolean(formErrors.date)}
                     helperText={formErrors.date}
+                    type="date"
+                    InputLabelProps={{
+                      shrink: true
+                    }}
                   />
                 </Grid>
                 <Grid

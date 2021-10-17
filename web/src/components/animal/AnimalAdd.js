@@ -24,7 +24,8 @@ const AnimalAdd = () => {
     registerMotherNumber: '',
     registerFatherNumber: '',
     genre: '',
-    breed_id: ''
+    breed_id: '',
+    birthDate: ''
   };
 
   const [formValues, setFormValues] = useState(initialValues);
@@ -94,7 +95,7 @@ const AnimalAdd = () => {
               >
                 <Grid
                   item
-                  md={3}
+                  md={6}
                   xs={12}
                 >
                   <TextField
@@ -111,7 +112,28 @@ const AnimalAdd = () => {
                 </Grid>
                 <Grid
                   item
-                  md={9}
+                  md={6}
+                  xs={12}
+                >
+                  <TextField
+                    fullWidth
+                    label="Data Nascimento"
+                    name="birthDate"
+                    onChange={handleChange}
+                    required
+                    value={formValues.date}
+                    variant="outlined"
+                    error={Boolean(formErrors.birthDate)}
+                    helperText={formErrors.birthDate}
+                    type="date"
+                    InputLabelProps={{
+                      shrink: true
+                    }}
+                  />
+                </Grid>
+                <Grid
+                  item
+                  md={12}
                   xs={12}
                 >
                   <TextField

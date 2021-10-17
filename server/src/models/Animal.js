@@ -1,4 +1,5 @@
 const { Model } = require('sequelize');
+const moment = require('moment');
 
 module.exports = (sequelize, Sequelize) => {
   class Animal extends Model {}
@@ -34,6 +35,15 @@ module.exports = (sequelize, Sequelize) => {
       genre: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      birthDate: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        get() {
+          const date = this.getDataValue('birthDate');
+          // 'this' allows you to access attributes of the instance
+          return moment(date).format('YYYY-MM-DD');
+        }
       }
     },
     {

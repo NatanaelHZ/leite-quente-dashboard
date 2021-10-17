@@ -268,7 +268,7 @@ const AnimalList = () => {
                             {animal.genre === 'M' ? 'Macho' : 'Fêmea'}
                           </TableCell>
                           <TableCell>
-                            {moment('1995-04-28').format('DD/MM/YYYY')}
+                            {moment(animal.birthDate).format('DD/MM/YYYY')}
                           </TableCell>
                         </TableRow>
                       ))}

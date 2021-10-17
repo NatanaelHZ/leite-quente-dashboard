@@ -1,4 +1,5 @@
 const { Model } = require('sequelize');
+const moment = require('moment');
 
 module.exports = (sequelize, Sequelize) => {
   class Production extends Model {}
@@ -12,7 +13,12 @@ module.exports = (sequelize, Sequelize) => {
       },
       date: {
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: false,
+        get() {
+          const date = this.getDataValue('date');
+          // 'this' allows you to access attributes of the instance
+          return moment(date).format('YYYY-MM-DD');
+        }
       },
       price: {
         type: Sequelize.DOUBLE,

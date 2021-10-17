@@ -120,6 +120,10 @@ const RevenueExpenditureEdit = ({ id, ...rest }) => {
                     variant="outlined"
                     error={Boolean(formErrors.date)}
                     helperText={formErrors.date}
+                    type="date"
+                    InputLabelProps={{
+                      shrink: true
+                    }}
                   />
                 </Grid>
                 <Grid
