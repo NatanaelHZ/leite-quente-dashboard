@@ -255,7 +255,7 @@ const RevenueExpenditureList = () => {
                             </Typography>
                           </TableCell>
                           <TableCell>
-                            {revenueExpenditure.price}
+                            {`R$ ${revenueExpenditure.price}`}
                           </TableCell>
                           <TableCell>
                             {revenueExpenditure.description}

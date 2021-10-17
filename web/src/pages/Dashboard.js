@@ -1,4 +1,5 @@
 /* eslint-disable import/no-unresolved */
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import {
   Box,
@@ -11,82 +12,106 @@ import TotalRevenues from 'src/components/dashboard/TotalRevenues';
 import TotalLiters from 'src/components/dashboard/TotalLiters';
 import TotalExpenditure from 'src/components/dashboard/TotalExpenditure';
 import GenreAnimal from 'src/components/dashboard/GenreAnimal';
+import * as dashboardService from 'src/services/dashboardService';
 
-const Dashboard = () => (
-  <>
-    <Helmet>
-      <title>Dashboard | Leite Quente</title>
-    </Helmet>
-    <Box
-      sx={{
-        backgroundColor: 'background.default',
-        minHeight: '100%',
-        py: 3
-      }}
-    >
-      <Container maxWidth={false}>
-        <Grid
-          container
-          spacing={3}
-        >
+const data = {
+  animals: 0,
+  production: 0,
+  month: 0,
+  revenues: 0,
+  expenditures: 0
+};
+
+const Dashboard = () => {
+  const [results, setResults] = useState(data);
+
+  useEffect(() => {
+    dashboardService.results().then(
+      (result) => {
+        setResults(result.data.data);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }, []);
+
+  return (
+    <>
+      <Helmet>
+        <title>Dashboard | Leite Quente</title>
+      </Helmet>
+      <Box
+        sx={{
+          backgroundColor: 'background.default',
+          minHeight: '100%',
+          py: 3
+        }}
+      >
+        <Container maxWidth={false}>
           <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
+            container
+            spacing={3}
           >
-            <TotalAnimal total={10} />
+            <Grid
+              item
+              lg={3}
+              sm={6}
+              xl={3}
+              xs={12}
+            >
+              <TotalAnimal total={results.animals} />
+            </Grid>
+            <Grid
+              item
+              lg={3}
+              sm={6}
+              xl={3}
+              xs={12}
+            >
+              <TotalLiters total={results.production} />
+            </Grid>
+            <Grid
+              item
+              lg={3}
+              sm={6}
+              xl={3}
+              xs={12}
+            >
+              <TotalRevenues total={results.revenues} />
+            </Grid>
+            <Grid
+              item
+              lg={3}
+              sm={6}
+              xl={3}
+              xs={12}
+            >
+              <TotalExpenditure sx={{ height: '100%' }} total={results.expenditures} />
+            </Grid>
+            <Grid
+              item
+              lg={8}
+              md={12}
+              xl={9}
+              xs={12}
+            >
+              <Sales />
+            </Grid>
+            <Grid
+              item
+              lg={4}
+              md={6}
+              xl={3}
+              xs={12}
+            >
+              <GenreAnimal sx={{ height: '100%' }} />
+            </Grid>
           </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TotalLiters total={120} />
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TotalRevenues total={2800.00} />
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TotalExpenditure sx={{ height: '100%' }} total={100.33} />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <Sales />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <GenreAnimal sx={{ height: '100%' }} />
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
-  </>
-);
+        </Container>
+      </Box>
+    </>
+  );
+};
 
 export default Dashboard;

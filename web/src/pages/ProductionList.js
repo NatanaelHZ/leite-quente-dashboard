@@ -242,7 +242,7 @@ const ProductionList = () => {
                             {production.liters}
                           </TableCell>
                           <TableCell>
-                            {production.price}
+                            {`R$ ${production.price}`}
                           </TableCell>
                           <TableCell>
                             {production.description}
