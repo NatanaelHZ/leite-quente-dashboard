@@ -20,54 +20,58 @@ import {
   InputAdornment,
   SvgIcon
 } from '@material-ui/core';
-import { Search as SearchIcon } from 'react-feather';
+import {
+  Search as SearchIcon,
+  ArrowDown as ArrowDownIcon,
+  ArrowUp as ArrowUpIcon,
+} from 'react-feather';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import * as productionService from 'src/services/ProductionService';
+import * as revenueExpenditureService from 'src/services/RevenueExpenditureService';
 
-const ProductionList = () => {
+const RevenueExpenditureList = () => {
   const navigate = useNavigate();
 
-  const [productions, setProductions] = useState([]);
-  const [selectedProductionIds, setSelectedProductionIds] = useState([]);
+  const [revenueExpenditures, setRevenueExpenditures] = useState([]);
+  const [selectedRevenueExpenditureIds, setSelectedRevenueExpenditureIds] = useState([]);
   const [limit, setLimit] = useState(100);
   const [page, setPage] = useState(0);
 
-  const listProductions = () => {
-    productionService.list().then(
+  const listRevenueExpenditures = () => {
+    revenueExpenditureService.list().then(
       (result) => {
-        console.log(`Registros: ${JSON.stringify(result.data.productions)}`);
+        console.log(`Registros: ${JSON.stringify(result.data.revenueExpenditures)}`);
         console.log(`Mesg: ${JSON.stringify(result.data.message)}`);
 
-        setProductions(result.data.data);
+        setRevenueExpenditures(result.data.data);
       },
       (error) => {
-        console.error(`Erro ao carregar : ${error}`);
+        console.error(`Erro ao carregar animais: ${error}`);
       }
     );
   };
 
   const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedProductionIds.indexOf(id);
-    let newSelectedProductionIds = [];
+    const selectedIndex = selectedRevenueExpenditureIds.indexOf(id);
+    let newSelectedRevenueExpenditureIds = [];
 
     if (selectedIndex === -1) {
-      newSelectedProductionIds = newSelectedProductionIds.concat(selectedProductionIds, id);
+      newSelectedRevenueExpenditureIds = newSelectedRevenueExpenditureIds.concat(selectedRevenueExpenditureIds, id);
     } else if (selectedIndex === 0) {
-      newSelectedProductionIds = newSelectedProductionIds.concat(selectedProductionIds.slice(1));
-    } else if (selectedIndex === selectedProductionIds.length - 1) {
-      newSelectedProductionIds = newSelectedProductionIds.concat(selectedProductionIds.slice(0, -1));
+      newSelectedRevenueExpenditureIds = newSelectedRevenueExpenditureIds.concat(selectedRevenueExpenditureIds.slice(1));
+    } else if (selectedIndex === selectedRevenueExpenditureIds.length - 1) {
+      newSelectedRevenueExpenditureIds = newSelectedRevenueExpenditureIds.concat(selectedRevenueExpenditureIds.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelectedProductionIds = newSelectedProductionIds.concat(
-        selectedProductionIds.slice(0, selectedIndex),
-        selectedProductionIds.slice(selectedIndex + 1)
+      newSelectedRevenueExpenditureIds = newSelectedRevenueExpenditureIds.concat(
+        selectedRevenueExpenditureIds.slice(0, selectedIndex),
+        selectedRevenueExpenditureIds.slice(selectedIndex + 1)
       );
     }
 
-    setSelectedProductionIds(newSelectedProductionIds);
+    setSelectedRevenueExpenditureIds(newSelectedRevenueExpenditureIds);
   };
 
   const handleLimitChange = (event) => {
@@ -79,29 +83,32 @@ const ProductionList = () => {
   };
 
   const handleAdd = () => {
-    navigate('/app/production', { state: { id: 0 } });
+    navigate('/app/revenue_expenditure', { state: { id: 0 } });
   };
 
   const handleEdit = () => {
-    if (selectedProductionIds.length === 1) {
-      console.log(`Selected ${selectedProductionIds[0]}`);
-      navigate('/app/production', { state: { id: selectedProductionIds[0] } });
+    if (selectedRevenueExpenditureIds.length === 1) {
+      console.log(`Selected ${selectedRevenueExpenditureIds[0]}`);
+      navigate(
+        '/app/revenue_expenditure',
+        { state: { id: selectedRevenueExpenditureIds[0] } }
+      );
     } else {
       alert('Por favor selecione somente 1 registro!');
     }
   };
 
   const handleDelete = () => {
-    if (selectedProductionIds.length === 1) {
-      console.log(`Selected ${selectedProductionIds[0]}`);
-      productionService.destroy(selectedProductionIds[0]).then(
+    if (selectedRevenueExpenditureIds.length === 1) {
+      console.log(`Selected ${selectedRevenueExpenditureIds[0]}`);
+      revenueExpenditureService.destroy(selectedRevenueExpenditureIds[0]).then(
         () => {
-          alert('Production excluido com sucesso!');
-          setSelectedProductionIds([]);
-          listProductions();
+          alert('RevenueExpenditure excluido com sucesso!');
+          setSelectedRevenueExpenditureIds([]);
+          listRevenueExpenditures();
         },
         (error) => {
-          console.error(`Erro ao excluir production: ${error}`);
+          console.error(`Erro ao excluir revenueExpenditure: ${error}`);
         }
       );
     } else {
@@ -110,13 +117,13 @@ const ProductionList = () => {
   };
 
   useEffect(() => {
-    listProductions();
+    listRevenueExpenditures();
   }, []);
 
   return (
     <>
       <Helmet>
-        <title>Animais | Leite Quente</title>
+        <title>Finanças | Leite Quente</title>
       </Helmet>
       <Box
         sx={{
@@ -156,7 +163,7 @@ const ProductionList = () => {
                 startIcon={<AddIcon />}
                 onClick={handleAdd}
               >
-                Lançar Produção
+                Lançar Finanças
               </Button>
             </Box>
             <Box sx={{ mt: 3 }}>
@@ -177,7 +184,7 @@ const ProductionList = () => {
                           </InputAdornment>
                         )
                       }}
-                      placeholder="Pesquisar Produção"
+                      placeholder="Pesquisar Receita ou despesa"
                       variant="outlined"
                     />
                   </Box>
@@ -199,7 +206,7 @@ const ProductionList = () => {
                           Data
                         </TableCell>
                         <TableCell>
-                          Litros
+                          Tipo
                         </TableCell>
                         <TableCell>
                           Valor
@@ -210,16 +217,16 @@ const ProductionList = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {productions.slice(0, limit).map((production) => (
+                      {revenueExpenditures.slice(0, limit).map((revenueExpenditure) => (
                         <TableRow
                           hover
-                          key={production.id}
-                          selected={selectedProductionIds.indexOf(production.id) !== -1}
+                          key={revenueExpenditure.id}
+                          selected={selectedRevenueExpenditureIds.indexOf(revenueExpenditure.id) !== -1}
                         >
                           <TableCell padding="checkbox">
                             <Checkbox
-                              checked={selectedProductionIds.indexOf(production.id) !== -1}
-                              onChange={(event) => handleSelectOne(event, production.id)}
+                              checked={selectedRevenueExpenditureIds.indexOf(revenueExpenditure.id) !== -1}
+                              onChange={(event) => handleSelectOne(event, revenueExpenditure.id)}
                               value="true"
                             />
                           </TableCell>
@@ -234,18 +241,24 @@ const ProductionList = () => {
                                 color="textPrimary"
                                 variant="body1"
                               >
-                                {`${moment(production.date).format('DD/MM/YYYY')}`}
+                                {`${moment(revenueExpenditure.date).format('DD/MM/YYYY')}`}
                               </Typography>
                             </Box>
                           </TableCell>
                           <TableCell>
-                            {production.liters}
+                            <Typography
+                              color={revenueExpenditure.type === 'R' ? 'green' : 'red'}
+                              style={{ verticalAlign: 'center' }}
+                            >
+                              {revenueExpenditure.type === 'R' ? 'Receita ' : 'Despesa '}
+                              {revenueExpenditure.type === 'R' ? <ArrowUpIcon /> : <ArrowDownIcon />}
+                            </Typography>
                           </TableCell>
                           <TableCell>
-                            {production.price}
+                            {revenueExpenditure.price}
                           </TableCell>
                           <TableCell>
-                            {production.description}
+                            {revenueExpenditure.description}
                           </TableCell>
                         </TableRow>
                       ))}
@@ -255,7 +268,7 @@ const ProductionList = () => {
               </PerfectScrollbar>
               <TablePagination
                 component="div"
-                count={productions.length}
+                count={revenueExpenditures.length}
                 onPageChange={handlePageChange}
                 onRowsPerPageChange={handleLimitChange}
                 page={page}
@@ -270,4 +283,4 @@ const ProductionList = () => {
   );
 };
 
-export default ProductionList;
+export default RevenueExpenditureList;

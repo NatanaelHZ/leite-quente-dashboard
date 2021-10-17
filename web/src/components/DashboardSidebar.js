@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import {
   BarChart as BarChartIcon,
+  DollarSign as DollarSignIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon
@@ -41,6 +42,11 @@ const items = [
     href: '/app/productions',
     icon: ShoppingBagIcon,
     title: 'Produção'
+  },
+  {
+    href: '/app/revenues_expenditures',
+    icon: DollarSignIcon,
+    title: 'Finanças'
   },
   {
     href: '/app/account',

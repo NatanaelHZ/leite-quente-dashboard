@@ -1,9 +1,9 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
-  class Production extends Model {}
+  class RevenueExpenditure extends Model {}
 
-  Production.init(
+  RevenueExpenditure.init(
     {
       id: {
         type: Sequelize.INTEGER,
@@ -20,18 +20,18 @@ module.exports = (sequelize, Sequelize) => {
       },
       description: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
-      liters: {
-        type: Sequelize.INTEGER,
+      type: {
+        type: Sequelize.STRING,
         allowNull: false
       }
     },
     {
       sequelize,
-      tableName: 'productions'
+      tableName: 'revenues_expenditures'
     }
   );
 
-  return Production;
+  return RevenueExpenditure;
 };

@@ -1,5 +1,9 @@
 export default [
   {
+    value: '',
+    label: ''
+  },
+  {
     value: '1',
     label: 'Holandesa'
   },

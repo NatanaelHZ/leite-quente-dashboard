@@ -14,6 +14,10 @@ import ProductionList from 'src/pages/ProductionList';
 // eslint-disable-next-line import/no-unresolved
 import Production from 'src/pages/Production';
 // eslint-disable-next-line import/no-unresolved
+import RevenueExpenditureList from 'src/pages/RevenueExpenditureList';
+// eslint-disable-next-line import/no-unresolved
+import RevenueExpenditure from 'src/pages/RevenueExpenditure';
+// eslint-disable-next-line import/no-unresolved
 import Dashboard from 'src/pages/Dashboard';
 // eslint-disable-next-line import/no-unresolved
 import Login from 'src/pages/Login';
@@ -36,6 +40,8 @@ const routes = (isLoggedIn) => [
       { path: 'animal', element: <Animal /> },
       { path: 'productions', element: <ProductionList /> },
       { path: 'production', element: <Production /> },
+      { path: 'revenues_expenditures', element: <RevenueExpenditureList /> },
+      { path: 'revenue_expenditure', element: <RevenueExpenditure /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },

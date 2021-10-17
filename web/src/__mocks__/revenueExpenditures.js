@@ -4,11 +4,11 @@ export default [
     label: ''
   },
   {
-    value: 'F',
-    label: 'Fêmea'
+    value: 'R',
+    label: 'Receita'
   },
   {
-    value: 'M',
-    label: 'Macho'
+    value: 'E',
+    label: 'Despesas'
   },
 ];

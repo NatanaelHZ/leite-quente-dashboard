@@ -9,9 +9,15 @@ breed_id - raça
 birthDate - Data Nascimento
 
 Produção:
-productionCategory_id
-
 date - data produção
 description - descrição
 price - preço
 liters - litros
+
+ReceitasDespesas
+revenues_expenditure
+date - data 
+description - descrição
+price - preço
+type - 
+
