@@ -30,7 +30,7 @@ const TotalLiters = ({ total, ...rest }) => (
             color="textPrimary"
             variant="h3"
           >
-            {total}
+            {total.toFixed(2)}
           </Typography>
         </Grid>
         <Grid item>

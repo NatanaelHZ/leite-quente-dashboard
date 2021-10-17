@@ -19,7 +19,9 @@ const data = {
   production: 0,
   month: 0,
   revenues: 0,
-  expenditures: 0
+  expenditures: 0,
+  males: 0,
+  females: 0
 };
 
 const Dashboard = () => {
@@ -105,7 +107,7 @@ const Dashboard = () => {
               xl={3}
               xs={12}
             >
-              <GenreAnimal sx={{ height: '100%' }} />
+              <GenreAnimal sx={{ height: '100%' }} male={results.males} female={results.females} />
             </Grid>
           </Grid>
         </Container>

@@ -43,8 +43,20 @@ exports.getTotals = async (req, res) => {
       attributes: [[sequelize.fn('COUNT', 0), 'count']]
     });
 
+    const males = await Animal.count({
+      where: { genre: 'M' },
+      attributes: [[sequelize.fn('COUNT', 0), 'count']]
+    });
+
+    const females = await Animal.count({
+      where: { genre: 'F' },
+      attributes: [[sequelize.fn('COUNT', 0), 'count']]
+    });
+
     const total = {
       animals,
+      males,
+      females,
       production,
       month,
       revenues,

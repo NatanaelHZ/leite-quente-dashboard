@@ -29,7 +29,7 @@ const TotalExpenditure = ({ total, ...rest }) => (
             color="textPrimary"
             variant="h3"
           >
-            {`R$ ${total}`}
+            {`R$ ${total.toFixed(2)}`}
           </Typography>
         </Grid>
         <Grid item>

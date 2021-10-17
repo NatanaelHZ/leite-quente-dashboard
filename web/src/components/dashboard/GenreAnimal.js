@@ -9,14 +9,15 @@ import {
   colors,
   useTheme
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
-const GenreAnimal = (props) => {
+const GenreAnimal = ({ male, female, ...rest }) => {
   const theme = useTheme();
 
   const data = {
     datasets: [
       {
-        data: [5, 20],
+        data: [male, female],
         backgroundColor: [
           colors.indigo[500],
           colors.orange[700]
@@ -54,18 +55,18 @@ const GenreAnimal = (props) => {
   const devices = [
     {
       title: 'Macho',
-      value: 5,
+      value: ((male * 100) / (male + female)).toFixed(2),
       color: colors.indigo[500]
     },
     {
       title: 'Fêmea',
-      value: 20,
+      value: ((female * 100) / (male + female)).toFixed(2),
       color: colors.orange[600]
     }
   ];
 
   return (
-    <Card {...props}>
+    <Card {...rest}>
       <CardHeader title="Animais" />
       <Divider />
       <CardContent>
@@ -118,6 +119,11 @@ const GenreAnimal = (props) => {
       </CardContent>
     </Card>
   );
+};
+
+GenreAnimal.propTypes = {
+  male: PropTypes.array.isRequired,
+  female: PropTypes.array.isRequired
 };
 
 export default GenreAnimal;

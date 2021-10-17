@@ -10,6 +10,7 @@ import {
 import { green } from '@material-ui/core/colors';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 const TotalRevenues = ({ total, ...rest }) => (
   <Card
@@ -34,7 +35,7 @@ const TotalRevenues = ({ total, ...rest }) => (
             color="textPrimary"
             variant="h3"
           >
-            {`R$ ${total}`}
+            {`R$ ${total.toFixed(2)}`}
           </Typography>
         </Grid>
         <Grid item>
@@ -51,7 +52,7 @@ const TotalRevenues = ({ total, ...rest }) => (
       </Grid>
       <Box sx={{ pt: 3 }}>
         <LinearProgress
-          value={75.5}
+          value={(parseInt(moment().date(), 10) * 100) / parseInt(moment().daysInMonth(), 10)}
           variant="determinate"
         />
       </Box>
