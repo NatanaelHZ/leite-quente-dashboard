@@ -1,53 +1,46 @@
-const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 
-exports.get = async (req, res) => {
+exports.list = async (req, res) => {
   try {
     const users = await User.findAll();
 
-    res.json({ data: users, message: 'get_success' });
+    return res.status(200).json({
+      data: users,
+      message: 'list_success'
+    });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    return res.status(400).json({
+      error: error.message
+    });
   }
 };
 
-exports.getById = async (req, res) => {
+exports.get = async (req, res) => {
   try {
-    const { id } = req.params.id;
+    const { id } = req.params;
 
     const user = await User.findByPk(id);
 
-    res.json({ data: user, message: 'get_success' });
+    const dataUser = {
+      name: user.name,
+      email: user.email,
+      id: user.id
+    };
+
+    res.json({ data: dataUser, message: 'get_success' });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-exports.register = async (req, res) => {
+exports.create = async (req, res) => {
   try {
-    const has = Object.prototype.hasOwnProperty;
-    const user = { ...req.body };
-    const { email } = user;
+    const user = await User.create(req.body);
 
-    const userCreated = await User.create(user);
-
-    if (userCreated.id) {
-      const token = jwt.sign(
-        { user_id: userCreated.id, email },
-        process.env.TOKEN_KEY,
-        {
-          expiresIn: '9h'
-        }
-      );
-
-      userCreated.token = token;
-
-      if (has.call(user, 'password')) {
-        delete user.password;
-      }
-    }
-
-    res.status(201).json({ data: userCreated, message: 'register_success' });
+    res.status(201).json({
+      data: user,
+      message: 'create_success'
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -55,12 +48,20 @@ exports.register = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    const user = { ...req.body };
     const { id } = req.params;
+    const data = { ...req.body };
 
-    const updatedUser = await User.update(user, { where: { id } });
+    const { password } = data;
 
-    res.status(201).json({ data: updatedUser, message: 'update_success' });
+    const user = {
+      ...(password !== '' && { password: data.password }),
+      email: data.email,
+      name: data.name
+    };
+
+    const updated = await User.update(user, { where: { id } });
+
+    res.status(201).json({ data: updated, message: 'update_success' });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -70,9 +71,9 @@ exports.delete = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const deletedUser = await User.destroy({ where: { id } });
+    const user = await User.destroy({ where: { id } });
 
-    res.json({ data: deletedUser, message: 'delete_success' });
+    res.status(200).json({ data: user, message: 'delete_success' });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

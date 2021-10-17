@@ -42,6 +42,30 @@ export function getCurrentUserEmail() {
   return 'faça login';
 }
 
+export function getCurrentUserName() {
+  const has = Object.prototype.hasOwnProperty;
+
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if (has.call(user, 'name')) {
+    return user.name;
+  }
+
+  return '';
+}
+
+export function getCurrentUserId() {
+  const has = Object.prototype.hasOwnProperty;
+
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if (has.call(user, 'id')) {
+    return user.id;
+  }
+
+  return 0;
+}
+
 export function isLoggedIn() {
   const has = Object.prototype.hasOwnProperty;
 

@@ -1,4 +1,3 @@
-import moment from 'moment';
 import {
   Avatar,
   Box,
@@ -9,18 +8,10 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
-};
-
-const AccountProfile = (props) => (
-  <Card {...props}>
+const AccountProfile = ({ user, ...rest }) => (
+  <Card {...rest}>
     <CardContent>
       <Box
         sx={{
@@ -47,13 +38,7 @@ const AccountProfile = (props) => (
           color="textSecondary"
           variant="body1"
         >
-          {`${user.city} ${user.country}`}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body1"
-        >
-          {`${moment().format('hh:mm A')} ${user.timezone}`}
+          {`${user.email}`}
         </Typography>
       </Box>
     </CardContent>
@@ -69,5 +54,9 @@ const AccountProfile = (props) => (
     </CardActions>
   </Card>
 );
+
+AccountProfile.propTypes = {
+  user: PropTypes.array.isRequired
+};
 
 export default AccountProfile;

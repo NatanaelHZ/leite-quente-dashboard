@@ -15,21 +15,21 @@ module.exports = (sequelize, Sequelize) => {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true, // Automatically gets converted to SERIAL for postgres
+        autoIncrement: true // Automatically gets converted to SERIAL for postgres
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
+        allowNull: false
+      }
     },
     {
       sequelize,
@@ -38,9 +38,9 @@ module.exports = (sequelize, Sequelize) => {
         beforeCreate: (user) => {
           const alterUser = user;
           alterUser.password = bcrypt.hashSync(user.password, SALT_ROUNDS);
-        },
+        }
       },
-      indexes: [{ unique: true, fields: ['email'] }],
+      indexes: [{ unique: true, fields: ['email'] }]
     }
   );
 

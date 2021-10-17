@@ -4,13 +4,14 @@ registerNumber - numero
 name - nome 
 registerMotherNumber - numero mão
 registerFatherNumber - numero pai
-genre_id - sexo
+genre - sexo
 breed_id - raça
 birthDate - Data Nascimento
 
 Produção:
-production
+productionCategory_id
 
 date - data produção
 description - descrição
 price - preço
+liters - litros
