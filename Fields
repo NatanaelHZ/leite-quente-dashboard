@@ -15,7 +15,8 @@ price - preço
 liters - litros
 
 ReceitasDespesas
-revenues_expenditure
+RevenueExpenditure
+revenue_expenditures
 date - data 
 description - descrição
 price - preço

@@ -4,14 +4,18 @@ import {
   Card,
   CardContent,
   Grid,
+  LinearProgress,
   Typography
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import ArrowUpward from '@material-ui/icons/ArrowUpward';
+import PropTypes from 'prop-types';
 
-const TotalCustomers = (props) => (
-  <Card {...props}>
+const TotalRevenues = ({ total, ...rest }) => (
+  <Card
+    sx={{ height: '100%' }}
+    {...rest}
+  >
     <CardContent>
       <Grid
         container
@@ -24,13 +28,13 @@ const TotalCustomers = (props) => (
             gutterBottom
             variant="h6"
           >
-            LITROS MÊS
+            FATURAMENTO MÊS
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            120
+            {`R$ ${total}`}
           </Typography>
         </Grid>
         <Grid item>
@@ -41,36 +45,22 @@ const TotalCustomers = (props) => (
               width: 56
             }}
           >
-            <PeopleIcon />
+            <ArrowUpward />
           </Avatar>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          pt: 2
-        }}
-      >
-        <ArrowUpwardIcon sx={{ color: green[900] }} />
-        <Typography
-          variant="body2"
-          sx={{
-            color: green[900],
-            mr: 1
-          }}
-        >
-          16%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography>
+      <Box sx={{ pt: 3 }}>
+        <LinearProgress
+          value={75.5}
+          variant="determinate"
+        />
       </Box>
     </CardContent>
   </Card>
 );
 
-export default TotalCustomers;
+TotalRevenues.propTypes = {
+  total: PropTypes.array.isRequired
+};
+
+export default TotalRevenues;

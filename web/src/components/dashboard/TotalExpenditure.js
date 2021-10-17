@@ -1,20 +1,16 @@
 import {
   Avatar,
-  Box,
   Card,
   CardContent,
   Grid,
-  LinearProgress,
   Typography
 } from '@material-ui/core';
-import { orange } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
+import PropTypes from 'prop-types';
 
-const TasksProgress = (props) => (
-  <Card
-    sx={{ height: '100%' }}
-    {...props}
-  >
+const TotalExpenditure = ({ total, ...rest }) => (
+  <Card {...rest}>
     <CardContent>
       <Grid
         container
@@ -27,19 +23,19 @@ const TasksProgress = (props) => (
             gutterBottom
             variant="h6"
           >
-            FATURAMENTO MÊS
+            DESPESAS MÊS
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            R$75.5
+            {`R$ ${total}`}
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: orange[600],
+              backgroundColor: red[600],
               height: 56,
               width: 56
             }}
@@ -48,14 +44,12 @@ const TasksProgress = (props) => (
           </Avatar>
         </Grid>
       </Grid>
-      <Box sx={{ pt: 3 }}>
-        <LinearProgress
-          value={75.5}
-          variant="determinate"
-        />
-      </Box>
     </CardContent>
   </Card>
 );
 
-export default TasksProgress;
+TotalExpenditure.propTypes = {
+  total: PropTypes.array.isRequired
+};
+
+export default TotalExpenditure;

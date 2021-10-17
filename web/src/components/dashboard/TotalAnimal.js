@@ -6,14 +6,14 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import MoneyIcon from '@material-ui/icons/Money';
-import { red } from '@material-ui/core/colors';
+import { GiCow as AnimalIcon } from 'react-icons/gi';
+import { indigo } from '@material-ui/core/colors';
+import PropTypes from 'prop-types';
 
-const Budget = (props) => (
+const TotalAnimal = ({ total, ...rest }) => (
   <Card
     sx={{ height: '100%' }}
-    {...props}
+    {...rest}
   >
     <CardContent>
       <Grid
@@ -33,18 +33,18 @@ const Budget = (props) => (
             color="textPrimary"
             variant="h3"
           >
-            120
+            {total}
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: red[600],
+              backgroundColor: indigo[600],
               height: 56,
               width: 56
             }}
           >
-            <MoneyIcon />
+            <AnimalIcon />
           </Avatar>
         </Grid>
       </Grid>
@@ -55,25 +55,19 @@ const Budget = (props) => (
           alignItems: 'center'
         }}
       >
-        <ArrowDownwardIcon sx={{ color: red[900] }} />
-        <Typography
-          sx={{
-            color: red[900],
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography>
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Since last month
+          Cadastrados na propriedade
         </Typography>
       </Box>
     </CardContent>
   </Card>
 );
 
-export default Budget;
+TotalAnimal.propTypes = {
+  total: PropTypes.array.isRequired
+};
+
+export default TotalAnimal;

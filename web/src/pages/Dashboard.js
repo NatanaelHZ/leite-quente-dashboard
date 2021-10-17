@@ -4,12 +4,12 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import Budget from 'src/components/dashboard//Budget';
-import Sales from 'src/components/dashboard//Sales';
-import TasksProgress from 'src/components/dashboard//TasksProgress';
-import TotalCustomers from 'src/components/dashboard//TotalCustomers';
-import TotalProfit from 'src/components/dashboard//TotalProfit';
-import TrafficByDevice from 'src/components/dashboard//TrafficByDevice';
+import TotalAnimal from 'src/components/dashboard/TotalAnimal';
+import Sales from 'src/components/dashboard/Sales';
+import TotalRevenues from 'src/components/dashboard/TotalRevenues';
+import TotalLiters from 'src/components/dashboard/TotalLiters';
+import TotalExpenditure from 'src/components/dashboard/TotalExpenditure';
+import GenreAnimal from 'src/components/dashboard/GenreAnimal';
 
 const Dashboard = () => (
   <>
@@ -35,7 +35,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <Budget />
+            <TotalAnimal total={10} />
           </Grid>
           <Grid
             item
@@ -44,7 +44,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TotalCustomers />
+            <TotalLiters total={120} />
           </Grid>
           <Grid
             item
@@ -53,7 +53,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TasksProgress />
+            <TotalRevenues total={2800.00} />
           </Grid>
           <Grid
             item
@@ -62,7 +62,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TotalProfit sx={{ height: '100%' }} />
+            <TotalExpenditure sx={{ height: '100%' }} total={100.33} />
           </Grid>
           <Grid
             item
@@ -80,7 +80,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TrafficByDevice sx={{ height: '100%' }} />
+            <GenreAnimal sx={{ height: '100%' }} />
           </Grid>
         </Grid>
       </Container>
