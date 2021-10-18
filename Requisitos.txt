@@ -1,3 +1,26 @@
+#Requisitos:
+
+- Controle de cadastro de animais:
+	- listar
+	- cadastrar
+	- editar e excluir
+
+- Controle de cadastro produção
+	- listar
+	- cadastrar
+	- editar e excluir
+
+- Controle de cadastro de receitas e despesas
+	- listar
+	- cadastrar
+	- editar e excluir
+
+- Dashboad com dados sobre a produção e animais
+	- exibir gráficos para ver situação da propriedade
+
+
+
+##Banco de Dados:
 Animal:
 
 registerNumber - numero
