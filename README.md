@@ -1,3 +1,6 @@
-# Gestão de propriedade rural
+Projeto: Gestão de propriedade rural
 
-# Trabalho para Programação II - Ciência da Computação - UFFS
+Matéria: Programação II (6ª fase)
+
+Ciência da Computação - Universidade Federal da Fronteira Sul
+
